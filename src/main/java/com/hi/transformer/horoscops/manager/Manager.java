@@ -1,14 +1,15 @@
 package com.hi.transformer.horoscops.manager;
 
-import com.hi.transformer.horoscops.zodiac.Horoscope;
-import com.hi.transformer.horoscops.zodiac.Zodiac;
-
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.hi.transformer.horoscops.zodiac.Horoscope;
+import com.hi.transformer.horoscops.zodiac.Zodiac;
 
 public class Manager {
 
@@ -36,7 +37,12 @@ public class Manager {
         for(int i = 0; i < zodiacList.size(); i++) {
             String sign = zodiacList.get(i);
             if(sign != null && sign != null) {
-                Horoscope horoscope = restClient.getHoroscope(sign);
+                Horoscope horoscope = null;
+                try {
+                    horoscope = restClient.getHoroscope(sign);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if(horoscope != null) {
                     horos.add(horoscope);
                 } else {
